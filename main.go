@@ -1,0 +1,5 @@
+package novel
+
+func main() {
+
+}

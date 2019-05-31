@@ -1,0 +1,13 @@
+version: "3.1"
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: "novel"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=novel
+      - MONGO_INITDB_ROOT_PASSWORD=databasenovel
+      - MONGO_INITDB_DATABASE=book
+    volumes:
+      - ../db:/data/db
+    ports:
+      - 28018:27017
