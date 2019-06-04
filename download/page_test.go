@@ -2,9 +2,9 @@ package download
 
 import "testing"
 
-func Test_GetHtml(t *testing.T)  {
+func Test_GetHtml(t *testing.T) {
 
-	html := GetHtml("http://www.piaotian5.com/book/134.html")
+	html, _ := GetHtml("http://www.piaotian5.com/book/134.html")
 
-	t.Logf("html value %v",html)
+	t.Logf("html value %v", html)
 }

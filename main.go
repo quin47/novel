@@ -1,4 +1,4 @@
-package novel
+package main
 
 func main() {
 

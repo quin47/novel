@@ -3,6 +3,8 @@ package download
 import (
 	"bufio"
 	"bytes"
+	"errors"
+	"fmt"
 	"golang.org/x/net/html/charset"
 	"golang.org/x/text/encoding"
 	"golang.org/x/text/transform"
@@ -12,27 +14,27 @@ import (
 	"net/http"
 )
 
-func GetHtml(url string) string {
+func GetHtml(url string) (string, error) {
 
 	resp, err := http.Get(url)
-	defer resp.Body.Close()
 
 	if err != nil {
-		log.Printf(" download page %s failed ", url)
-		return ""
+		return "", errors.New(fmt.Sprintf("download page failed %v", url))
 	}
+
+	defer resp.Body.Close()
 
 	b, err := ioutil.ReadAll(resp.Body)
 	e, err := DetermineEncodingFromReader(bytes.NewReader(b))
 	if err != nil {
-		return ""
+		return "", errors.New("read html failed ")
 	}
 	r := transform.NewReader(bytes.NewReader(b), e.NewDecoder())
 	all, err := ioutil.ReadAll(r)
 	if err != nil {
-		log.Printf("reread bytes error :%v",err)
+		log.Printf("reread bytes error :%v", err)
 	}
-	return string(all)
+	return string(all), nil
 
 }
 
